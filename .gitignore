@@ -5,6 +5,7 @@ node_modules
 # 配置文件
 .env 
 # 爬虫文件
+!controller/
 setu.js
 xiuse4k.js
 zhaotaotu.js
