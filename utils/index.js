@@ -64,7 +64,27 @@ function throttle(fn, interval, options){
   
   return _throttle
 }
+const createUUID = () => {
+  // Date.now()可以转为8位的36进制字符串，再补充4位的自增id即可
+  const INITIAL_COUNTER = 46656; // parseInt('1000', 36); 36进制里的最小4位数对应的10进制数字，最大的4位数为parseInt('zzzz', 36)，即 1679615
+  let counter = INITIAL_COUNTER;
+  let lasttime = 0;
 
+  return () => {
+    const now = Date.now();
+
+    if (now == lasttime) {
+      counter++;
+    } else {
+      counter = INITIAL_COUNTER;
+      lasttime = now;
+    }
+
+    return `${now.toString(36)}${counter.toString(36)}`;
+  }
+};
+createUUID();
 module.exports = {
-  delayed
+  delayed,
+  createUUID
 }

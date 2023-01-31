@@ -7,10 +7,12 @@ const {
 } = require("./app/config");
 
 require('./router');
-require('./router/setu.router')
+require('./router/setu.router');
+require("./router/upload.router");
 
 
 app.set('views', path.join(__dirname,'views'));
+
 app.set("view engine","ejs");
 
 
