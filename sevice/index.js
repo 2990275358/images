@@ -67,6 +67,16 @@ class Service{
       return false
     }
   }
+  async addBook(obj){
+    const statement = `INSERT INTO books (author,name,pic,dowLink,synopsis) VALUES (?,?,?,?,?);`;
+    try {
+      const [result] = await connections.query(statement, [obj.author,obj.name,obj.pic,obj.dowLink,obj.synopsis]);
+      return result.affectedRows === 1
+    } catch (error) {
+      console.log(error);
+      return false
+    }
+  }
 }
 
 module.exports = new Service();

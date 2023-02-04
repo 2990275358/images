@@ -42,7 +42,7 @@
 <body>
   <div class="content">
     <video width="100%" id="video" height="100%" controls autoplay loop>
-      <source id="source" src="http://localhost:8000/video/read?num=0"   type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' media="Media_query">
+      <source id="source" src="http://localhost:8000/video/read?num=10"   type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' media="Media_query">
     </video>
     <span id="cur">当前：1</span>
     <div class="button">
@@ -54,56 +54,58 @@
     </div>
   </div>
   <script type="text/javascript">
-    const pre = document.querySelector("#pre");
-    const next = document.querySelector("#next");
-    const go = document.querySelector("#go");
-    const goto = document.querySelector("#goto");
-    const video = document.querySelector("#video");
-    const cur = document.querySelector("#cur");
-    const source = document.querySelector("#source");
-    function getCurVideoSrc(){
-      const src = source.src;
-      const url = src.substring(src.lastIndexOf("="),0);
-      const curNum = Number(src.substring(src.lastIndexOf("=")).split("=")[1]);
-      return {
-        url,
-        curNum
+    ;(function(){
+      const pre = document.querySelector("#pre");
+      const next = document.querySelector("#next");
+      const go = document.querySelector("#go");
+      const goto = document.querySelector("#goto");
+      const video = document.querySelector("#video");
+      const cur = document.querySelector("#cur");
+      const source = document.querySelector("#source");
+      function getCurVideoSrc(){
+        const src = source.src;
+        const url = src.substring(src.lastIndexOf("="),0);
+        const curNum = Number(src.substring(src.lastIndexOf("=")).split("=")[1]);
+        return {
+          url,
+          curNum
+        }
       }
-    }
-    pre.addEventListener("click",() => {
-      const obj = getCurVideoSrc();
-      if(obj.curNum == 0){
-        pre.innerHTML = "已经是第一个";
-        return
-      }else{
-        pre.innerHTML = "上一个";
-      }
-      const cNum = obj.curNum - 1;
-      video.setAttribute("src",`${obj.url}=${cNum}`)
-      source.setAttribute("src",`${obj.url}=${cNum}`)
-      cur.innerHTML = `当前：${cNum + 1}`
-      goto.value = "";
-    })
-    next.addEventListener("click",() => {
-      pre.innerHTML = "上一个";
-      const obj = getCurVideoSrc();
-      const cNum = obj.curNum + 1;
-      video.setAttribute("src",`${obj.url}=${obj.curNum+1}`)
-      source.setAttribute("src",`${obj.url}=${obj.curNum+1}`)
-      cur.innerHTML = `当前：${cNum + 1}`
-      goto.value = "";
-    })
-    go.addEventListener("click",() => {
-      const value = goto.value;
-      if(value==="") return
-      if(!isNaN(Number(value))){
-        pre.innerHTML != "上一个" ? pre.innerHTML = "上一个" : '';
+      pre.addEventListener("click",() => {
         const obj = getCurVideoSrc();
-        video.setAttribute("src",`${obj.url}=${value - 1}`)
-        source.setAttribute("src",`${obj.url}=${value - 1}`)
-        cur.innerHTML = `当前：${value}`
-      }
-    })
+        if(obj.curNum == 0){
+          pre.innerHTML = "已经是第一个";
+          return
+        }else{
+          pre.innerHTML = "上一个";
+        }
+        const cNum = obj.curNum - 1;
+        video.setAttribute("src",`${obj.url}=${cNum}`)
+        source.setAttribute("src",`${obj.url}=${cNum}`)
+        cur.innerHTML = `当前：${cNum + 1}`
+        goto.value = "";
+      })
+      next.addEventListener("click",() => {
+        pre.innerHTML = "上一个";
+        const obj = getCurVideoSrc();
+        const cNum = obj.curNum + 1;
+        video.setAttribute("src",`${obj.url}=${obj.curNum+1}`)
+        source.setAttribute("src",`${obj.url}=${obj.curNum+1}`)
+        cur.innerHTML = `当前：${cNum + 1}`
+        goto.value = "";
+      })
+      go.addEventListener("click",() => {
+        const value = goto.value;
+        if(value==="") return
+        if(!isNaN(Number(value))){
+          pre.innerHTML != "上一个" ? pre.innerHTML = "上一个" : '';
+          const obj = getCurVideoSrc();
+          video.setAttribute("src",`${obj.url}=${value - 1}`)
+          source.setAttribute("src",`${obj.url}=${value - 1}`)
+          cur.innerHTML = `当前：${value}`
+        }
+      })
+    })();
   </script>
 </body>
 </html>

@@ -49,11 +49,31 @@ route.get("/", (req, res) => {
 
 route.get("/read", (req, res) => {
   let num = req.query.num || 0;
-  res.writeHead(200,{"content-type":"video/mp4"})
   const filenames = fs.readdirSync(path.join(__dirname, `../uploads`));
-  num = num >= filenames.length ? filenames.length - 1 : num
-  const read = fs.createReadStream(path.join(__dirname, `../uploads/${filenames[num]}`));
-  read.pipe(res)
+  num = num >= filenames.length ? filenames.length - 1 : num;
+  const filepath = path.join(__dirname, `../uploads/${filenames[num]}`);
+  fs.stat(filepath,(err,stats) => {
+    if(err){
+      res.send(err);
+      return;
+    }
+    var range = req.headers.range || "bytes=0";
+    var positions = range.replace(/bytes=/, "").split("-");
+    var start = parseInt(positions[0]);
+    var total = stats.size;
+    var end = positions[1] ? parseInt(positions[1]) : total - 1;
+    var chunksize = (end - start) + 1;
+    res.writeHead(206, {
+        "Content-Range": "bytes " + start + "-" + end + "/" + total,
+        "Accept-Ranges": "bytes",
+        "Content-Length": chunksize,
+        "Content-Type": "video/mp4"
+    });
+    const read = fs.createReadStream(filepath ,{start: start, end: end});
+    read.on("open",() => {
+      read.pipe(res)
+    })
+  })
   // fs.readFile(path.join(__dirname, `../uploads/fc287bc27bdbb214d107c23c85e56e08.mp4`),"binary",(err,file) => {
   //   if(err){
   //     console.log(err);
