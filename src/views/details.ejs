@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <title>图片详情</title>
+    <link rel="stylesheet" href="/css/details.css" />
+    <script src="/js/utils.js"></script>
+    <script src="/js/backTop.js"></script>
+  </head>
+  <body>
+    <h1><button class="back">返回</button><%= title %></h1>
+    <section>
+      <div class="content">
+        <% for(let i = 0; i < imgs.length; i++){ %>
+        <div class="img-item">
+          <img
+            class="img"
+            onclick="setCurImg(this)"
+            src="<%= loadingImg %>"
+            data-src="<%= imgs[i].imgUrl %>"
+            draggable="false"
+          />
+        </div>
+        <% } %>
+      </div>
+      <div class="shade">
+        <div class="shade-content">
+          <div class="cha none">×</div>
+          <div class="shuzi cha">28/2</div>
+          <div id="prev" class="page none">&lt;</div>
+          <img
+            id="img"
+            src="<%= loadingImg %>"
+            data-load="<%= loadingImg %>"
+            alt="加载中"
+            draggable="false"
+          />
+          <div id="next" class="page none">></div>
+        </div>
+      </div>
+    </section>
+    <script src="/js/details.js"></script>
+  </body>
+</html>

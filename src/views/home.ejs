@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TT图片网</title>
+    <link rel="stylesheet" href="/css/home.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/Pagination.js"></script>
+    <script src="/js/backTop.js"></script>
+    <script src="/js/utils.js"></script>
+  </head>
+  <body>
+    <div id="search">
+      <input
+        id="searchText"
+        type="text"
+        value="<%= search %>"
+        placeholder="请输入关键词"
+      /><button class="search-btn">搜索</button>
+    </div>
+    <section>
+      <div class="content">
+        <% for(let i = 0; i < imgs.length; i++){ %>
+        <div class="img-item">
+          <img
+            src="<%= loadingImg %>"
+            data-src="<%= imgs[i].cover %>"
+            alt=""
+            srcset=""
+          />
+          <a
+            href="details?id=<%= imgs[i].id %>&title=<%= imgs[i].imgName %>"
+            target="_blank"
+          >
+            <%= imgs[i].imgName %>
+          </a>
+        </div>
+        <% } %>
+      </div>
+    </section>
+    <span id="count"><%= total %>,<%= curPage %>,<%= host %></span>
+    <!-- 分页器 -->
+    <div id="page"></div>
+    <script type="text/javascript" src="/js/home.js"></script>
+  </body>
+</html>

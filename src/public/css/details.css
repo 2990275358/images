@@ -1,0 +1,128 @@
+body {
+  background-color: #6a8372;
+  margin: 0;
+  padding: 0;
+}
+.content {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 20%;
+  box-sizing: border-box;
+}
+@media screen and (min-width: 300px) and (max-width: 800px) {
+  .content {
+    padding: 0 1%;
+  }
+}
+.img-item {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  background-color: #305a56;
+  margin: 5px 0;
+}
+.img-item > img {
+  width: 100%;
+  border-radius: 5px;
+}
+h1 {
+  /* width: 100%; */
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  height: auto;
+  background-color: #305a56;
+  z-index: 99;
+  margin: 0;
+  color: #91ad70;
+  padding: 20px;
+}
+.back {
+  outline: none;
+  border: none;
+  background-color: #6a8372;
+  color: #91ad70;
+  width: 6rem;
+  height: 3rem;
+  border-radius: 15px;
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+.back:hover {
+  background-color: #91ad70;
+  color: #6a8372;
+}
+/* 蒙版 */
+.shade {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: black;
+  z-index: 999;
+  display: none;
+}
+.shade-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+.none {
+  margin: 0px 20px;
+  color: white;
+  font-size: 30px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  line-height: 35px;
+  cursor: pointer;
+}
+.cha {
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  color: white;
+  cursor: pointer;
+  z-index: 9999;
+  font-size: 24px;
+}
+.shuzi {
+  max-width: 80px;
+  padding: 5px 10px;
+  top: 10px;
+  left: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  border-radius: 8px;
+}
+.shade-content > #img {
+  width: auto;
+  max-width: calc(100% - 120px);
+  max-height: 100%;
+}
+.none:hover {
+  background-color: aliceblue;
+  color: black;
+}
+@media screen and (min-width: 300px) and (max-width: 850px) {
+  .shade {
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+  .shade-content > #img {
+    max-width: 100%;
+  }
+  .none {
+    display: none;
+  }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>视频播放</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #6a8372;
+      }
+      .content {
+        width: 100vw;
+        height: 100vh;
+        padding-bottom: 66px;
+        box-sizing: border-box;
+      }
+      video {
+        object-fit: fill;
+      }
+      .button,
+      .search {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+      button {
+        outline: none;
+        border: none;
+        background-color: #91ad70;
+        color: #6a8372;
+        width: 4rem;
+        height: 2rem;
+        border-radius: 15px;
+        font-size: 0.5rem;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <video width="100%" id="video" height="100%" controls autoplay loop>
+        <source
+          id="source"
+          src="http://localhost:8000/video/read?num=10"
+          type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+          media="Media_query"
+        />
+      </video>
+      <span id="cur">当前：1</span>
+      <div class="button">
+        <button id="pre" ondragenter="mousedown">上一个</button>
+        <div class="search">
+          <input type="text" name="" id="goto" /><button id="go">go</button>
+        </div>
+        <button id="next">下一个</button>
+      </div>
+    </div>
+    <script type="text/javascript">
+      (function () {
+        const pre = document.querySelector("#pre");
+        const next = document.querySelector("#next");
+        const go = document.querySelector("#go");
+        const goto = document.querySelector("#goto");
+        const video = document.querySelector("#video");
+        const cur = document.querySelector("#cur");
+        const source = document.querySelector("#source");
+        function getCurVideoSrc() {
+          const src = source.src;
+          const url = src.substring(src.lastIndexOf("="), 0);
+          const curNum = Number(
+            src.substring(src.lastIndexOf("=")).split("=")[1]
+          );
+          return {
+            url,
+            curNum,
+          };
+        }
+        pre.addEventListener("click", () => {
+          const obj = getCurVideoSrc();
+          if (obj.curNum == 0) {
+            pre.innerHTML = "已经是第一个";
+            return;
+          } else {
+            pre.innerHTML = "上一个";
+          }
+          const cNum = obj.curNum - 1;
+          video.setAttribute("src", `${obj.url}=${cNum}`);
+          source.setAttribute("src", `${obj.url}=${cNum}`);
+          cur.innerHTML = `当前：${cNum + 1}`;
+          goto.value = "";
+        });
+        next.addEventListener("click", () => {
+          pre.innerHTML = "上一个";
+          const obj = getCurVideoSrc();
+          const cNum = obj.curNum + 1;
+          video.setAttribute("src", `${obj.url}=${obj.curNum + 1}`);
+          source.setAttribute("src", `${obj.url}=${obj.curNum + 1}`);
+          cur.innerHTML = `当前：${cNum + 1}`;
+          goto.value = "";
+        });
+        go.addEventListener("click", () => {
+          const value = goto.value;
+          if (value === "") return;
+          if (!isNaN(Number(value))) {
+            pre.innerHTML != "上一个" ? (pre.innerHTML = "上一个") : "";
+            const obj = getCurVideoSrc();
+            video.setAttribute("src", `${obj.url}=${value - 1}`);
+            source.setAttribute("src", `${obj.url}=${value - 1}`);
+            cur.innerHTML = `当前：${value}`;
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

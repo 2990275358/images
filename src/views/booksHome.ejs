@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>看看书吧</title>
+    <link rel="stylesheet" href="/css/bookshome.css" />
+  </head>
+  <body>
+    <div>
+      <% for(let i = 0; i < data.length; i++){ %>
+      <a href="<%= data[i].dowLink  %>" class="book-warp">
+        <img src="<%= data[i].pic  %>" draggable="false" alt="封面" />
+        <div class="name">
+          <%= data[i].name %>(<spoan class="author"><%= data[i].author %></spoan
+          >)
+        </div>
+        <div class="synopsis"><%= data[i].synopsis %></div>
+      </a>
+      <%}%>
+    </div>
+  </body>
+</html>
