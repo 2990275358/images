@@ -4,12 +4,5 @@ static
 node_modules
 # 配置文件
 .env 
-# 爬虫文件
-!controller/setu.js
-setu.js
-xiuse4k.js
-zhaotaotu.js
-24fa触屏版.js
-aotutu.js
-wangyiMusic.js
+# 视频资源
 uploads
